@@ -31,7 +31,7 @@
           <q-item-section>Help &amp; Feedback</q-item-section>
         </q-item>
         <q-separator />
-        <q-item clickable v-close-popup>
+        <q-item clickable v-close-popup @click="$stores.auth.logout(router)">
           <q-item-label  class="q-pt-xs q-pr-sm"><icon icon="tabler:door-exit" /></q-item-label>
           <q-item-section>Sair</q-item-section>
         </q-item>
@@ -39,3 +39,10 @@
     </q-menu>
   </q-btn>
 </template>
+
+<script lang="ts" setup>
+import { $stores } from '@/stores/all'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+</script>

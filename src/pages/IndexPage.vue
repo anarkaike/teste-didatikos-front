@@ -1,10 +1,8 @@
 <template>
   <q-page>
-    <div class="title-welcome">Bem Vindo, <strong>{{$stores.auth.user?.name}}</strong></div>
-
     <div class="ctn-fast-links">
-      <div class="q-pl-xs">LINKS RÁPIDOS:</div>
-      <div class="row">
+      <div class="q-pl-xs text-center">LINKS RÁPIDOS:</div>
+      <div class="row justify-center">
         <div class="col-6 col-sm-3 col-md-2 link-products" @click="router.push({ name: 'products' })">
           <div class="flex justify-around">
             <icon class="q-mr-md" icon="fluent-mdl2:product-variant" />
@@ -37,23 +35,42 @@
         </div>
       </div>
     </div>
+
+    <q-separator class="q-mt-md" />
+    <div class="q-mt-md">
+      <div class="title-bi q-my-sm text-center text-bold">BI de Produtos • Contagem, Média, Somatória, Maior e Menor</div>
+      <div class="row">
+        <div class="col-12 col-md-6 q-px-md">
+          <DkBiProduct :products="$stores.products.list" type="brand" :categories="$stores.brands.options" />
+        </div>
+        <div class="col-12 col-md-6 q-px-md">
+          <DkBiProduct :products="$stores.products.list" type="city" :categories="$stores.cities.options" />
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { $stores } from '@/stores/all'
+import { computed, onBeforeMount, ref, Ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { DkBiProduct } from '@/components'
 
 const router = useRouter()
+
+onBeforeMount(() => {
+  $stores.products.listAll()
+  $stores.brands.getOptions()
+  $stores.cities.getOptions()
+})
 </script>
 
 <style lang="scss">
-.title-welcome {
-  font-size: 35px;
+.title-bi {
+  color: #bf0209;
+  font-size: 30px;
   font-weight: 100;
-  strong {
-    font-weight: 200;
-  }
 }
 .ctn-fast-links {
   margin-top: 30px;
@@ -68,8 +85,16 @@ const router = useRouter()
         display: flex;
         transition: transform linear 0.1s, background-color linear 0.3s;
         cursor: pointer;
+        font-size: 20px;
+        height: 100%;
         .iconify {
           transition: transform linear 0.1s;
+          font-size: 38px;
+          min-width: 38px;
+          min-height: 38px;
+        }
+        > span {
+          padding-top: 5px;
         }
         &:hover {
           transform: scale(1.03);

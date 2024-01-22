@@ -142,7 +142,7 @@
     </q-form>
   </div>
 </template>
-$stores.cities
+
 <script lang="ts" setup>
 import { ref, Ref, watchEffect } from 'vue'
 import { $stores } from '@/stores/all'

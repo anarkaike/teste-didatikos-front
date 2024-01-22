@@ -163,14 +163,18 @@
 
           <!-- TEMPLATE COLUNA PREÇO -->
           <q-td auto-width key="price" :props="props" class="xs-hide cursor-pointer" @click="methods.onEdit(props.row)">
-            {{$formatting.money(props.row.price)}}
-            <DkIconUpDown :value1="props.row.price" :value2="averagePrice" />
+            <q-chip outline>
+              {{$formatting.money(props.row.price)}}
+              <DkIconUpDown :value1="props.row.price" :value2="averagePrice" />
+            </q-chip>
           </q-td>
 
           <!-- TEMPLATE COLUNA ESTOQUE -->
           <q-td auto-width key="stock" :props="props" class="xs-hide cursor-pointer" @click="methods.onEdit(props.row)">
-            {{$formatting.decimal(props.row.stock)}}
-            <DkIconUpDown :value1="props.row.stock" :value2="averageStock" />
+            <q-chip outline>
+              {{$formatting.decimal(props.row.stock)}}
+              <DkIconUpDown :value1="props.row.stock" :value2="averageStock" />
+            </q-chip>
           </q-td>
 
           <!-- TEMPLATE COLUNA ACTIONS -->
@@ -198,21 +202,21 @@
       </template>
     </q-table>
 
-    <div class="flex justify-around">
+    <div class="flex justify-between">
       <q-chip dense class="col-auto q-px-md chip-title">
-        Produto de <strong>maior</strong> valor: <strong>{{maxPrice.name}}</strong> com <strong>{{$formatting.money(maxPrice.price)}}</strong>
+        <u>Maior</u> valor: <strong>{{maxPrice.name}}</strong> com <strong>{{$formatting.money(maxPrice.price)}}</strong>
       </q-chip>
       <q-chip dense class="col-auto q-px-md chip-title">
-        Produto de <strong>maior</strong> estoque: <strong>{{maxStock.name}}</strong> com <strong>{{$formatting.money(maxStock.price)}}</strong>
+        <u>Maior</u> estoque: <strong>{{maxStock.name}}</strong> com <strong>{{$formatting.money(maxStock.price)}}</strong>
       </q-chip>
     </div>
-
-    <div class="flex justify-around">
+    <q-separator />
+    <div class="flex justify-between">
       <q-chip dense class="col-auto q-px-md chip-title">
-        Produto de <strong>menor</strong> valor: <strong>{{minPrice.name}}</strong> com <strong>{{$formatting.money(minPrice.price)}}</strong>
+        <u>Menor</u> valor: <strong>{{minPrice.name}}</strong> com <strong>{{$formatting.money(minPrice.price)}}</strong>
       </q-chip>
       <q-chip dense class="col-auto q-px-md chip-title">
-        Produto de <strong>menor</strong> estoque: <strong>{{minStock.name}}</strong> com <strong>{{$formatting.money(minStock.price)}}</strong>
+        <u>Menor</u> estoque: <strong>{{minStock.name}}</strong> com <strong>{{$formatting.money(minStock.price)}}</strong>
       </q-chip>
     </div>
   </div>
@@ -296,11 +300,6 @@ const emit = defineEmits([
 watchEffect(() => {
   emit('on-products-filtered', productsFiltered.value)
 })
-
-// const averagePrice = computed(() => sumPrice.value / productsFiltered.value.length)
-// const sumPrice = computed(() => methods.calculateSum('price'))
-// const averageStock = computed(() => sumStock.value / productsFiltered.value.length)
-// const sumStock = computed(() => methods.calculateSum('stock'))
 
 const averagePrice = computed(() => $bi.products.avarages.inAll(productsFiltered.value, EBiProductCalculateColumns.PRICE))
 const sumPrice = computed(() => $bi.products.sums.inAll(productsFiltered.value, EBiProductCalculateColumns.PRICE))
@@ -413,16 +412,17 @@ const methods = {
     }
   }
 }
-strong {
+strong, u {
   display: inline-block;
   padding-left: 5px;
   padding-right: 5px;
 }
 .icon-up-down {
-  font-size: 15px;
-  min-width: 15px;
-  min-height: 15px;
+  font-size: 20px;
+  min-width: 20px;
+  min-height: 20px;
   vertical-align: bottom;
   font-weight: bold;
+  margin-left: 5px;
 }
 </style>

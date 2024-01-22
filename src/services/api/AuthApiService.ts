@@ -18,7 +18,7 @@ export default class AuthApiService extends BaseApiService {
 
   async autoRegister (user: IUser): Promise<IAuthResponse> {
     try {
-      const res: AxiosResponse = await api.post('/saas-clients/auto-register', user)
+      const res: AxiosResponse = await api.post('/register', user)
       return res.data
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

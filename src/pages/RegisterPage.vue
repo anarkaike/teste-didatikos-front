@@ -4,8 +4,27 @@
         <div class="text-center">
           <q-img src="/imgs/logo.png" class="dk-logo" />
         </div>
-        <div class="title-form-login-register">Login</div>
+        <div class="title-form-login-register">Cadastre-se</div>
         <q-form class="q-ma-md" @submit.prevent="methods.login">
+          <!-- CAMPO NOME -->
+          <q-input
+            rounded
+            standout
+            v-model="formData.name"
+            label="Nome"
+            class="q-mb-md"
+            hide-bottom-space
+            autocomplete="off"
+            lazy-rules
+            :rules="[
+            val => (val && val.length > 0) || 'Digite seu nome'
+          ]"
+          >
+            <template #prepend>
+              <icon icon="fluent-mdl2:user-variant" />
+            </template>
+          </q-input>
+
           <q-input
             rounded
             standout
@@ -50,10 +69,10 @@
           </q-input>
 
           <q-btn type="submit" fab class="btn-primary full-width q-mb-md">
-            Entrar
+            Cadastrar
           </q-btn>
-          <q-btn unelevated fab class="btn-seconday full-width q-mt-md" @click="router.push({ name: 'register' })">
-            Cadastre-se
+          <q-btn unelevated fab class="btn-seconday full-width q-mt-md" @click="router.push({ name: 'login' })">
+            Voltar
           </q-btn>
         </q-form>
       </q-card>
@@ -75,7 +94,7 @@ const pwsVisible: Ref<boolean> = ref(false)
 
 const methods = {
   login () {
-    $stores.auth.login(formData.value.email, formData.value.password, router)
+    $stores.auth.autoRegister(formData.value, router)
   }
 }
 </script>

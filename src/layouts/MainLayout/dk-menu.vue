@@ -4,6 +4,13 @@
       <div class="dk-ctn-menu normal">
         <q-list>
 
+          <q-item clickable v-ripple :to="{ name: 'home' }" @click="$stores.auth.toogleMenu">
+            <q-item-section avatar class="col-auto">
+              <icon icon="solar:home-linear" class="q-mr-md" />
+            </q-item-section>
+            <q-item-section>Home</q-item-section>
+          </q-item>
+
           <q-item clickable v-ripple :to="{ name: 'products' }" @click="$stores.auth.toogleMenu">
             <q-item-section avatar class="col-auto">
               <icon icon="fluent-mdl2:product-variant" class="q-mr-md" />
@@ -32,7 +39,7 @@
             <q-item-section>Gerenciar Usuários</q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple @click="$stores.auth.logout(router)">
             <q-item-section avatar class="col-auto">
               <icon icon="tabler:door-exit" class="q-mr-md" />
             </q-item-section>
@@ -44,6 +51,13 @@
     </template>
     <template #mini>
       <div class="dk-ctn-menu mini">
+        <q-btn flat fab-mini :to="{ name: 'home' }" :class="{'menu-active': route.name==='home' }">
+          <icon icon="solar:home-linear" />
+          <q-tooltip class="text-body2 tooltip-red" :offset="[40, -37]"  anchor="bottom right" transition-show="scale" transition-hide="scale">
+            Home
+          </q-tooltip>
+        </q-btn>
+        <br />
         <q-btn flat fab-mini :to="{ name: 'products' }" :class="{'menu-active': route.name==='products' }">
           <icon icon="fluent-mdl2:product-variant" />
           <q-tooltip class="text-body2 tooltip-red" :offset="[84, -37]"  anchor="bottom right" transition-show="scale" transition-hide="scale">
@@ -67,7 +81,7 @@
         <br />
         <q-btn flat fab-mini :to="{ name: 'users' }" :class="{'menu-active': route.name==='users' }">
           <icon icon="heroicons:user-solid" />
-          <q-tooltip class="text-body2 tooltip-red" :offset="[85, -37]"  anchor="bottom right" transition-show="scale" transition-hide="scale">
+          <q-tooltip class="text-body2 tooltip-red" :offset="[83, -37]"  anchor="bottom right" transition-show="scale" transition-hide="scale">
             Gerenciar Usuários
           </q-tooltip>
         </q-btn>
