@@ -94,7 +94,18 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      // https: true
+      https: true,
+
+      proxy: {
+        // proxy all requests starting with /api to jsonplaceholder
+        '/v1/api': {
+          target: 'https://apididatikos.junio.cc/v1/api',
+          changeOrigin: false,
+          pathRewrite: {
+            '^/v1/api': '/v1/api'
+          }
+        }
+      },
       headers: {
         'access-control-allow-origin': '*',
         'access-control-allow-methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS'

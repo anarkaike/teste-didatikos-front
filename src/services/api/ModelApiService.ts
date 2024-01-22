@@ -11,7 +11,8 @@ export default class ModelApiService extends ReadOnlyApiService {
           'access-control-allow-origin': '*',
           'access-control-allow-methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
           'X-Requested-With': 'XMLHttpRequest',
-          'Access-Control-Allow-Credentials': 'true'
+          'Access-Control-Allow-Credentials': 'true',
+          withCredentials: true
         }
       })
       return res.data
@@ -34,7 +35,8 @@ export default class ModelApiService extends ReadOnlyApiService {
           'access-control-allow-origin': '*',
           'access-control-allow-methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
           'X-Requested-With': 'XMLHttpRequest',
-          'Access-Control-Allow-Credentials': 'true'
+          'Access-Control-Allow-Credentials': 'true',
+          withCredentials: true
         }
       })
       return res.data
@@ -49,7 +51,9 @@ export default class ModelApiService extends ReadOnlyApiService {
   async delete (id: number) {
     try {
       this.setToken()
-      const res: AxiosResponse = await api.delete(this.getUrlForDelete(id))
+      const res: AxiosResponse = await api.delete(this.getUrlForDelete(id), {
+        withCredentials: true
+      })
       return res.data
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
