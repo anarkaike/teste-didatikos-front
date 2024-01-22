@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { $stores } from '@/stores/all'
-import { computed, onBeforeMount, ref, Ref } from 'vue'
+import { onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { DkBiProduct } from '@/components'
 
