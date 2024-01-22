@@ -38,13 +38,13 @@
 
     <q-separator class="q-mt-md" />
     <div class="q-mt-md">
-      <div class="title-bi q-my-sm text-center text-bold">BI de Produtos • Contagem, Média, Somatória, Maior e Menor</div>
+      <div class="title-bi-home q-my-sm text-center text-bold">BI de Produtos • Contagem, Média, Somatória, Maior e Menor</div>
       <div class="row">
         <div class="col-12 col-md-6 q-px-md">
-          <DkBiProduct :products="$stores.products.list" type="brand" :categories="$stores.brands.options" />
+          <DkBiProduct v-if="$stores.products.products && $stores.products.products.length > 0" :products="$stores.products.products" type="brand" :categories="$stores.brands.options" />
         </div>
         <div class="col-12 col-md-6 q-px-md">
-          <DkBiProduct :products="$stores.products.list" type="city" :categories="$stores.cities.options" />
+          <DkBiProduct v-if="$stores.products.products && $stores.products.products.length > 0" :products="$stores.products.products" type="city" :categories="$stores.cities.options" />
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@ onBeforeMount(() => {
 </script>
 
 <style lang="scss">
-.title-bi {
+.title-bi-home {
   color: #bf0209;
   font-size: 30px;
   font-weight: 100;

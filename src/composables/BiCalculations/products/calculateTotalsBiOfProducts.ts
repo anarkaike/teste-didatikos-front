@@ -5,10 +5,10 @@ import { citiesStore } from '@/stores/cities-store'
 export default function calculateTotalsBiOfProducts () {
   const byBrands = (products: IProduct[], brands: IBrand[]|null = null): {[key: number]: number} => {
     const totals: {[key: number]: number} = []
-    brands = brands || brandsStore().list
+    brands = brands || brandsStore().list || []
     brands.forEach((brand: IBrand) => {
       totals[brand.id as number] = products.reduce(
-        (s: number, product: IProduct): number => product.brand_id === brand.id ? s + 1 : s, 0
+        (s: number, product: IProduct): number => Number(product.brand_id) === Number(brand.id) ? s + 1 : s, 0
       )
     })
     return totals
@@ -16,10 +16,10 @@ export default function calculateTotalsBiOfProducts () {
 
   const byCities = (products: IProduct[], cities: ICity[]|null = null): {[key: number]: number} => {
     const totals: {[key: number]: number} = []
-    cities = cities || citiesStore().list
+    cities = cities || citiesStore().list || []
     cities.forEach((city: ICity) => {
       totals[city.id as number] = products.reduce(
-        (s: number, product: IProduct): number => product.city_id === city.id ? s + 1 : s, 0
+        (s: number, product: IProduct): number => Number(product.city_id) === Number(city.id) ? s + 1 : s, 0
       )
     })
     return totals

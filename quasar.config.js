@@ -94,7 +94,7 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      https: true,
+      // https: false,
 
       proxy: {
         // proxy all requests starting with /api to jsonplaceholder

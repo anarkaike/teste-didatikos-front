@@ -32,6 +32,7 @@
             label="Seu email"
             class="q-mb-md"
             autocomplete="off"
+            hide-bottom-space
             lazy-rules
             :rules="[
               val => (val && val.length > 0) || 'Digite seu email',
@@ -51,6 +52,7 @@
             label="Senha"
             class="q-mb-md"
             autocomplete="off"
+            hide-bottom-space
             lazy-rules
             :rules="[
               val => (val && val.length > 0) || 'Digite sua senha'

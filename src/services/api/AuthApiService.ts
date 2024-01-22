@@ -6,9 +6,7 @@ import { api } from '@/boot/axios'
 export default class AuthApiService extends BaseApiService {
   async login (email: string, password: string): Promise<IAuthResponse> {
     try {
-      const res: AxiosResponse = await api.post('/login', { email, password }, {
-        withCredentials: true
-      })
+      const res: AxiosResponse = await api.post('/login', { email, password })
       return res.data
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -20,9 +18,7 @@ export default class AuthApiService extends BaseApiService {
 
   async autoRegister (user: IUser): Promise<IAuthResponse> {
     try {
-      const res: AxiosResponse = await api.post('/register', user, {
-        withCredentials: true
-      })
+      const res: AxiosResponse = await api.post('/register', user)
       return res.data
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,9 +31,7 @@ export default class AuthApiService extends BaseApiService {
   async logout (): Promise<IAuthResponse> {
     try {
       this.setToken()
-      const res: AxiosResponse = await api.post('/logout', {}, {
-        withCredentials: true
-      })
+      const res: AxiosResponse = await api.post('/logout')
       return res.data
     } catch (err) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

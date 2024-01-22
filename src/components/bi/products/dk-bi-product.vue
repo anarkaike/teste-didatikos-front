@@ -32,7 +32,7 @@
             <q-separator />
             Média de valor: {{$formatting.money(averagesPriceByBrands[row.id])}}
             <q-separator />
-            Média de estoque: {{$formatting.money(averagesStockByBrands[row.id])}}
+            Média de estoque: {{$formatting.decimal(averagesStockByBrands[row.id])}}
             <q-separator />
             <strong>Maior</strong> preço: <strong>{{maxPriceInBrands[row.id]?.name}}</strong> com <strong>{{$formatting.money(maxPriceInBrands[row.id]?.price??0)}}</strong>
             <q-separator />
@@ -66,15 +66,15 @@ const singlarLabel = props.type === EBiProductTypes.BRAND ? 'Marca' : 'Cidade'
 const pluralLabel = props.type === EBiProductTypes.BRAND ? 'Marcas' : 'Cidades'
 const funcName = props.type === EBiProductTypes.BRAND ? 'byBrand' : 'byCity'
 
-const sumPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products ?? [], EBiProductCalculateColumns.PRICE))
-const sumStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products ?? [], EBiProductCalculateColumns.STOCK))
-const totalsByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.totals[funcName](props.products ?? []))
-const averagesPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products ?? [], EBiProductCalculateColumns.PRICE))
-const averagesStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products ?? [], EBiProductCalculateColumns.STOCK))
-const maxPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products ?? [], EBiProductCalculateColumns.PRICE))
-const maxStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products ?? [], EBiProductCalculateColumns.STOCK))
-const minPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products ?? [], EBiProductCalculateColumns.PRICE))
-const minStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products ?? [], EBiProductCalculateColumns.STOCK))
+const sumPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
+const sumStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
+const totalsByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.totals[funcName](props.products as IProduct[]))
+const averagesPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
+const averagesStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
+const maxPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
+const maxStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
+const minPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
+const minStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
 const search: Ref<string> = ref('')
 
 const filtered = computed(() =>

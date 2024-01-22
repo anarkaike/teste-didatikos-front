@@ -7,18 +7,18 @@ export default function calculateMaxBiOfProducts () {
   const inAll = (products: IProduct[], column: EBiProductCalculateColumns): IProduct => {
     return products.reduce(
       (max: IProduct, product: IProduct) => {
-        return (Object.keys(max).length === 0 || (product[column] ?? 0) > (max[column] ?? 0)) ? product : max
+        return (Object.keys(max).length === 0 || Number(product[column] ?? 0) > Number(max[column] ?? 0)) ? product : max
       }, {}
     )
   }
 
   const byBrands = (products: IProduct[], column: EBiProductCalculateColumns, brands: IBrand[]|null = null): {[key: number]: IProduct} => {
     const max: {[key: number]: IProduct} = []
-    brands = brands || brandsStore().list
+    brands = brands || brandsStore().list || []
     brands.forEach((brand: IBrand) => {
       max[brand.id as number] = products.reduce(
         (max: IProduct, product: IProduct) => {
-          return ((Object.keys(max).length === 0 || (product[column] ?? 0) > (max[column] ?? 0)) && brand.id === product.brand_id) ? product : max
+          return ((Object.keys(max).length === 0 || Number(product[column] ?? 0) > Number(max[column] ?? 0)) && Number(brand.id) === Number(product.brand_id)) ? product : max
         }, {}
       )
     })
@@ -27,11 +27,11 @@ export default function calculateMaxBiOfProducts () {
 
   const byCities = (products: IProduct[], column: EBiProductCalculateColumns, cities: ICity[]|null = null): {[key: number]: IProduct} => {
     const max: {[key: number]: IProduct} = []
-    cities = cities || citiesStore().list
+    cities = cities || citiesStore().list || []
     cities.forEach((city: ICity) => {
       max[city.id as number] = products.reduce(
         (max: IProduct, product: IProduct) => {
-          return ((Object.keys(max).length === 0 || (product[column] ?? 0) > (max[column] ?? 0)) && city.id === product.city_id) ? product : max
+          return ((Object.keys(max).length === 0 || Number(product[column] ?? 0) > Number(max[column] ?? 0)) && Number(city.id) === Number(product.city_id)) ? product : max
         }, {}
       )
     })
