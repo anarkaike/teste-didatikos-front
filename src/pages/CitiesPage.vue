@@ -42,6 +42,9 @@ const methods = {
   },
   onCancelEdit (cityReseted: ICity) {
     cityForEdit.value = cityReseted
+  },
+  updateCityFiltered (cities: ICity[]) {
+    citiesFiltered.value = cities
   }
 }
 

@@ -31,17 +31,20 @@
 <script setup lang="ts">
 import { onBeforeMount, ref, Ref } from 'vue'
 import { $stores } from '@/stores/all'
-import { IBrand, IUser } from '@/interfaces'
+import { IUser } from '@/interfaces'
 import { DkUserForm, DkUserList } from '@/components'
 
 const userForEdit: Ref<IUser> = ref({})
-const usersFiltered: Ref<IBrand[]> = ref([])
+const usersFiltered: Ref<IUser[]> = ref([])
 const methods = {
   onEdit (user: IUser) {
     userForEdit.value = user
   },
   onCancelEdit (userReseted: IUser) {
     userForEdit.value = userReseted
+  },
+  updateUserFiltered (users: IUser[]) {
+    usersFiltered.value = users
   }
 }
 

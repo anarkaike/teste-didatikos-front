@@ -21,8 +21,10 @@ import { DkHeader, DkMenu, DkFooter } from './MainLayout'
 <style lang="scss">
 body {
   background-color: #FFF;
+  background-image: url('/imgs/fundoLogin.svg');
 }
 .q-page-container {
+  background-image: url('/imgs/fundoLogin.svg');
   .dk-ctn-container {
     background-color: rgb(240, 240, 245, 0.7);
     -webkit-border-top-left-radius: 40px;
