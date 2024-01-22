@@ -2,7 +2,7 @@
   <div>
     <div class="title-bi flex justify-around  q-mt-lg">
       <span>Por <strong>{{singlarLabel}}</strong>:</span>
-      <q-chip dense>{{totalsByBrands.filter((r) => r > 0).length}} {{pluralLabel.toLowerCase()}}</q-chip>
+      <q-chip dense>{{totals.filter((r) => r > 0).length}} produtos nestas {{pluralLabel.toLowerCase()}}</q-chip>
     </div>
     <div class="col-12 col-md-4 q-px-xs">
       <q-input
@@ -21,18 +21,18 @@
     </div>
     <div class="scroll box-bi q-mb-sm">
       <div v-for="(row) in filtered" :key="row.id">
-        <div class="q-mb-md" v-show="totalsByBrands[row.id] > 0">
+        <div class="q-mb-md" v-show="totals[row.id] > 0">
           <div style="color: #585f63;">
             <div class="flex justify-between">
               <div class="title-info-bi">{{singlarLabel}} {{row.label}}</div>
-              <q-chip dense outline class="chip-info-bi">{{totalsByBrands[row.id]}} produtos</q-chip>
+              <q-chip dense outline class="chip-info-bi">{{totals[row.id]}} produtos</q-chip>
             </div>
 
             <div class="subtitle-info-bi flex justify-between">
               <span>Estoque:</span>
               <span>
-                <q-chip dense outline class="chip-info-bi">Soma total: {{$formatting.decimal(sumStockByBrands[row.id])}}</q-chip>
-                <q-chip dense outline class="chip-info-bi">Média: {{$formatting.decimal(averagesStockByBrands[row.id])}}</q-chip>
+                <q-chip dense outline class="chip-info-bi">Soma total: {{$formatting.decimal(sumStock[row.id])}}</q-chip>
+                <q-chip dense outline class="chip-info-bi">Média: {{$formatting.decimal(averagesStock[row.id])}}</q-chip>
               </span>
             </div>
             <div class="label-bi">Menor quantidade em estoque:</div>
@@ -43,8 +43,8 @@
             <div class="subtitle-info-bi flex justify-between">
               <span>Preço:</span>
               <span>
-                <q-chip dense outline class="chip-info-bi">Soma total: R$ {{ $formatting.money(sumPriceByBrands[row.id]) }}</q-chip>
-                <q-chip dense outline class="chip-info-bi">Média: R$ {{$formatting.money(averagesPriceByBrands[row.id])}}</q-chip>
+                <q-chip dense outline class="chip-info-bi">Soma total: R$ {{ $formatting.money(sumPrice[row.id]) }}</q-chip>
+                <q-chip dense outline class="chip-info-bi">Média: R$ {{$formatting.money(averagesPrice[row.id])}}</q-chip>
               </span>
             </div>
             <div class="flex justify-between">
@@ -83,11 +83,11 @@ const singlarLabel = props.type === EBiProductTypes.BRAND ? 'Marca' : 'Cidade'
 const pluralLabel = props.type === EBiProductTypes.BRAND ? 'Marcas' : 'Cidades'
 const funcName = props.type === EBiProductTypes.BRAND ? 'byBrand' : 'byCity'
 
-const sumPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
-const sumStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
-const totalsByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.totals[funcName](props.products as IProduct[]))
-const averagesPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
-const averagesStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
+const sumPrice: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
+const sumStock: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
+const totals: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.totals[funcName](props.products as IProduct[]))
+const averagesPrice: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
+const averagesStock: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
 const maxPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
 const maxStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products as IProduct[], EBiProductCalculateColumns.STOCK))
 const minPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products as IProduct[], EBiProductCalculateColumns.PRICE))
