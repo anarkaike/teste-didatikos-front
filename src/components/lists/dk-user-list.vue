@@ -44,7 +44,8 @@
           <!-- TEMPLATE COLUNA NAME -->
           <q-td key="name" :props="props" @click="methods.onEdit(props.row)" class="cursor-pointer">
             <div class="text-bold">
-              <span>{{props.row.name}} </span>
+              <div>{{props.row.name}} </div>
+              <div style="color: #666; font-weight: normal;">{{props.row.email}} </div>
               <br>
               <span style="color: #666;">{{props.row.manufacturer}} </span>
               <q-chip dense class="chip-green q-ml-md" v-if="userForEdit.id === props.row.id">
