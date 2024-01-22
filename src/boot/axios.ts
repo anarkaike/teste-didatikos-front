@@ -20,7 +20,7 @@ const api = axios.create({ baseURL: process.env.API_URL_BASE })
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
 
-  app.config.globalProperties.$axios = axios
+  // app.config.globalProperties.$axios = axios
   // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
   //       so you won't necessarily have to import axios in each vue file
 
@@ -28,7 +28,7 @@ export default boot(({ app }) => {
   // api.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
   // api.defaults.headers.common['Access-Control-Allow-Headers'] = 'Content-Type'
   // api.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-  app.config.globalProperties.$api = api
+  // app.config.globalProperties.$api = api
   const token: string | null = LocalStorage.getItem('LmToken')
   if (token) {
     api.defaults.headers.common.Authorization = 'Bearer ' + token

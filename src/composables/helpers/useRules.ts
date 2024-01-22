@@ -51,6 +51,6 @@ export default function useRules () {
   }
 }
 
-export const $useRules = {
+export const $rules = {
   datetimeBrIsValid: useRules().datetimeBrIsValid
 }

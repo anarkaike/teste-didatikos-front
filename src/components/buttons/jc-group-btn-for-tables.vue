@@ -12,21 +12,16 @@
 </template>
 
 <script lang="ts" setup>
-import { JcBtnView, JcBtnEdit, JcBtnDelete } from '@/components'
+import { JcBtnEdit, JcBtnDelete } from '@/components'
 
 // CONSTANTES ---------------------------------------------------
-// const props = defineProps([])
 const emit = defineEmits([
-  'on-view',
   'on-edit',
   'on-delete'
 ])
 
 // METODOS ---------------------------------------------------
 const methods = {
-  onView (row: unknown) {
-    emit('on-view', row)
-  },
   onEdit (row: unknown) {
     emit('on-edit', row)
   },

@@ -11,6 +11,9 @@ export const citiesStore = defineStore('citiesStore', {
   getters: {
     list: (state) => {
       return state.cities
+    },
+    options: (state) => {
+      return state.cityOptions
     }
   },
   actions: {

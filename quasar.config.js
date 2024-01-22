@@ -11,7 +11,7 @@
 const { configure } = require('quasar/wrappers')
 const path = require('path')
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function (ctx) {
   return {
     eslint: {
       // fix: true,
@@ -54,9 +54,17 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
+      env: {
+        ...require('dotenv').config().parsed
+      },
+      publicPath: '',
+      // target: {
+      //   browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
+      //   node: 'node20'
+      // },
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
-        node: 'node20'
+        node: 'node16'
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
@@ -64,13 +72,9 @@ module.exports = configure(function (/* ctx */) {
       // vueDevtools,
       // vueOptionsAPI: false,
 
-      rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
+      // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-      // publicPath: '/',
       // analyze: true,
-      env: {
-        ...require('dotenv').config().parsed
-      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
@@ -91,13 +95,19 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
+      headers: {
+        'access-control-allow-origin': '*',
+        'access-control-allow-methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+      },
       open: true // opens browser window automatically
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
+      autoImportComponentCase: 'combined',
       config: {},
       cssAddon: true,
+      type: 'https',
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -112,7 +122,9 @@ module.exports = configure(function (/* ctx */) {
       // Quasar plugins
       plugins: [
         'Notify',
-        'Dialog'
+        'Dialog',
+        'Loading',
+        'LocalStorage'
       ]
     },
 

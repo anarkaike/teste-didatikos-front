@@ -1,13 +1,15 @@
 import { $notify } from './useNotify'
 import { $loading } from './useLoading'
 import { $vibrate } from './useVibratePhone'
-import { $useHumanize } from './useHumanize'
-import { $useRules } from './useRules'
+import { $formatting } from './useFormatting'
+import { $rules } from './useRules'
+import { $sanitization } from './useSanitization'
 
 export {
   $notify,
   $loading,
   $vibrate,
-  $useHumanize,
-  $useRules
+  $rules,
+  $formatting,
+  $sanitization
 }

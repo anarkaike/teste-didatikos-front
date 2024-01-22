@@ -1,10 +1,10 @@
 <template>
   <q-page>
     <div class="title-page q-mb-md flex justify-between">
-      <span>Gestão de Produtos</span>
+      <span>Gestão de <strong>Produtos</strong></span>
 
-      <q-chip class="col-auto q-px-md text-bold">
-        Total de {{productsFiltered.length}} produtos
+      <q-chip class="col-auto q-px-md text-bold chip-title">
+        Total de &nbsp; <strong>{{productsFiltered.length}} produtos</strong>
       </q-chip>
     </div>
     <div class="row">
@@ -14,44 +14,9 @@
             <DkProductForm :product="productForEdit" @on-reset="methods.onCancelEdit" />
           </div>
           <div class="q-mt-md">
-            <div class="title-bi q-my-sm text-center text-bold">BI • Contagem, Média e Somatória</div>
-            <div class="title-bi flex justify-between">
-              <span>Por Marca:</span>
-              <q-chip dense>{{totalsByBrands.filter((r) => r > 0).length}} marcas</q-chip>
-            </div>
-            <div class="scroll box-bi q-mb-sm">
-              <div v-for="(brand, index) in brands" :key="brand.id">
-                <div class="q-mb-md" v-show="totalsByBrands[brand.id] > 0">
-                  <strong>{{index+1}} • {{brand.label}}:</strong>
-                  <br />
-                  Total: {{totalsByBrands[brand.id]}}
-                  <br />
-                  Somatória: R$ {{sumByBrands[brand.id].toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}
-                  <br>
-                  Média: {{averagesByBrands[brand.id].toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}
-                </div>
-              </div>
-            </div>
-            <div class="title-bi flex justify-between">
-              <span>Por Cidade:</span>
-              <q-chip dense>{{totalsByCities.filter((r) => r > 0).length}} cidades</q-chip>
-            </div>
-            <div class="scroll box-bi">
-              <div v-for="(city, index) in cities" :key="city.id">
-                <div class="q-mb-md" v-show="totalsByCities[city.id] > 0">
-                  <strong>{{index+1}} • {{city.label}}:</strong>
-                  <br />
-                  Total: {{totalsByCities[city.id]}}
-                  <br />
-                  Somatória: R$ {{sumByCities[city.id].toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}
-                  <br>
-                  Média: {{averagesByCities[city.id].toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}}
-                </div>
-              </div>
-            </div>
-            <div class="q-mt-xs" v-show="$stores.products.list.length !== productsFiltered.length">
-              <q-checkbox size="xs" color="#CCCCCC" class="q-md-sm text-caption" v-model="useFiltered" :toggle-indeterminate="false" label="Considerar os filtros" />
-            </div>
+            <div class="title-bi q-my-sm text-center text-bold">BI • Contagem, Média, Somatória, Maior e Menor</div>
+            <DkBiProduct :products="products" type="brand" />
+            <DkBiProduct :products="products" type="city" />
           </div>
         </div>
       </div>
@@ -69,15 +34,13 @@
 </template>
 
 <script setup lang="ts">
-import { $stores } from '@/stores/all'
 import { computed, ComputedRef, onBeforeMount, ref, Ref } from 'vue'
-import { IOption, IProduct } from '@/interfaces'
-import { DkProductForm, DkProductList } from '@/components'
+import { $stores } from '@/stores/all'
+import { IProduct } from '@/interfaces'
+import { DkProductForm, DkProductList, DkBiProduct } from '@/components'
+import { $bi } from '@/composables'
 
 const productForEdit: Ref<IProduct> = ref({})
-const brands: Ref<IOption[]> = ref([])
-const cities: Ref<IOption[]> = ref([])
-
 const useFiltered: Ref<boolean> = ref(true)
 const productsFiltered: Ref<IProduct[]> = ref([])
 
@@ -85,50 +48,24 @@ const productsFiltered: Ref<IProduct[]> = ref([])
 const products = computed(() => useFiltered.value ? productsFiltered.value : $stores.products.list)
 
 // Dados de BI por marca
-const sumByBrands: ComputedRef<{[key: number]: number}> = computed(() => {
-  const sumByBrands: {[key: number]:number} = {}
-  brands.value.forEach((brand: IOption) => {
-    sumByBrands[brand.id as number] = products.value.reduce((s: number, product: IProduct): number => product.brand_id === brand.id ? s + (product.price ?? 0) : s, 0)
-  })
-  return sumByBrands
-})
-const totalsByBrands: ComputedRef<{[key: number]: number}> = computed(() => {
-  const totalByBrands: {[key: number]:number} = []
-  brands.value.forEach((brand: IOption) => {
-    totalByBrands[brand.id as number] = products.value.reduce((s: number, product: IProduct): number => product.brand_id === brand.id ? s + 1 : s, 0)
-  })
-  return totalByBrands
-})
-const averagesByBrands: ComputedRef<{[key: number]: number}> = computed(() => {
-  const averagesByBrands: {[key: number]:number} = []
-  brands.value.forEach((brand: IOption) => {
-    averagesByBrands[brand.id as number] = sumByBrands.value[brand.id as number] / totalsByBrands.value[brand.id as number]
-  })
-  return averagesByBrands
-})
-
+const sumPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums.byBrand(products.value, 'price'))
+const sumStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums.byBrand(products.value, 'stock'))
+const totalsByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.totals.byBrand(products.value))
+const averagesByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages.byBrand(products.value, 'price'))
+const maxPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max.byBrand(products.value, 'price'))
+const maxStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max.byBrand(products.value, 'stock'))
+const minPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min.byBrand(products.value, 'price'))
+const minStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min.byBrand(products.value, 'stock'))
 // Dados de BI por cidade
-const sumByCities = computed(() => {
-  const sumByCities: {[key: number]:number} = {}
-  cities.value.forEach((city: IOption) => {
-    sumByCities[city.id as number] = products.value.reduce((s: number, product: IProduct): number => product.city_id === city.id ? s + (product.price ?? 0) : s, 0)
-  })
-  return sumByCities
-})
-const totalsByCities = computed(() => {
-  const totalByCities: {[key: number]:string} = []
-  cities.value.forEach((city: IOption) => {
-    totalByCities[city.id as number] = products.value.reduce((s: number, product: IProduct): number => product.city_id === city.id ? s + 1 : s, 0).toString()
-  })
-  return totalByCities
-})
-const averagesByCities: ComputedRef<{[key: number]: number}> = computed(() => {
-  const averagesByCities: {[key: number]:number} = []
-  cities.value.forEach((city: IOption) => {
-    averagesByCities[city.id as number] = Number(sumByCities.value[city.id as number]) / Number(totalsByCities.value[city.id as number])
-  })
-  return averagesByCities
-})
+
+const sumPriceByCities: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums.byCity(products.value, 'price'))
+const sumStockByCities: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums.byCity(products.value, 'stock'))
+const totalsByCities: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.totals.byCity(products.value))
+const averagesByCities: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages.byCity(products.value, 'price'))
+const maxPriceInCities: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max.byCity(products.value, 'price'))
+const maxStockInCities: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max.byCity(products.value, 'stock'))
+const minPriceInCities: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min.byCity(products.value, 'price'))
+const minStockInCities: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min.byCity(products.value, 'stock'))
 
 const methods = {
   onEdit (product: IProduct) {
@@ -143,12 +80,9 @@ const methods = {
 }
 
 onBeforeMount(() => {
-  $stores.brands.getOptions().then((res) => {
-    brands.value = res
-  })
-  $stores.cities.getOptions().then((res) => {
-    cities.value = res
-  })
+  $stores.products.listAll()
+  $stores.brands.getOptions()
+  $stores.cities.getOptions()
 })
 </script>
 
@@ -159,7 +93,6 @@ onBeforeMount(() => {
     background-color: rgba(255, 255, 255, 0.7);
     padding: 10px;
     border-radius: 20px;
-    min-height: 300px;
   }
 }
 .ctn-product-form {

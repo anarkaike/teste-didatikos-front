@@ -4,10 +4,10 @@ import {
 } from 'quasar'
 
 export default function useLoading () {
-  const hideLoading = () => {
+  const hide = () => {
     Loading.hide()
   }
-  const showLoading = (message = 'Carregando...') => {
+  const show = (message = 'Carregando...') => {
     Loading.show({
       spinner: QSpinnerPuff,
       spinnerColor: 'yellow',
@@ -22,12 +22,12 @@ export default function useLoading () {
   }
 
   return {
-    showLoading,
-    hideLoading
+    show,
+    hide
   }
 }
 
 export const $loading = {
-  show: useLoading().showLoading,
-  hide: useLoading().hideLoading
+  show: useLoading().show,
+  hide: useLoading().hide
 }

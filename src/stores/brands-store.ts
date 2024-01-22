@@ -6,19 +6,33 @@ import { IBrand, IOption } from '@/interfaces'
 export const brandsStore = defineStore('brandsStore', {
   state: () => ({
     brands: [] as IBrand[],
-    brandOptions: null as IOption[] | null
+    brandOptions: null as IOption[] | null,
+    loading: false as boolean
   }),
   getters: {
     list: (state) => {
       return state.brands
+    },
+    options: (state) => {
+      return state.brandOptions
     }
   },
   actions: {
     async listAll (): Promise<IBrand[]> {
       try {
+        this.loading = true
         // Buscando marcas na API
-        this.brands = await $api.brands.listAll()
+        if (this.brands.length === 0) {
+          this.brands = await $api.brands.listAll()
+        }
+        setTimeout(async () => {
+          // Chamo de forma asyncrona para atualizar o store posteriormente
+          this.loading = true
+          this.brands = await $api.brands.listAll()
+          this.loading = false
+        }, 500)
 
+        this.loading = false
         return this.brands
       } catch (err) {
         console.error('Erro ao listar as marcas: ', err)

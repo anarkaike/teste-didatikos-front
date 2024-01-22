@@ -18,9 +18,21 @@
   color: #666;
 }
 .q-btn {
-  transition: transform 0.1s linear;
-  &:hover {
+  transition: transform 0.1s linear, opacity 0.1s linear;
+  &.very-effect-scale-xs:hover {
     transform: scale(1.01);
+  }
+  &.very-effect-scale-sm:hover {
+    transform: scale(1.03);
+  }
+  &:hover {
+    transform: scale(1.05);
+  }
+  &.very-effect-scale-lg:hover {
+    transform: scale(1.09);
+  }
+  &.very-effect-scale-xl:hover {
+    transform: scale(1.12);
   }
 }
 
@@ -88,4 +100,13 @@
 }
 .q-page {
   min-height: calc(100vh - 135px) !important;
+}
+
+.chip-title {
+  font-size: 13px;
+  color: #626466;
+  font-weight: normal;
+  strong {
+    font-weight: bold;
+  }
 }

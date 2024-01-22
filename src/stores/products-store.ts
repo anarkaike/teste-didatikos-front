@@ -5,7 +5,8 @@ import { IProduct, IOption } from '@/interfaces'
 
 export const productsStore = defineStore('productsStore', {
   state: () => ({
-    products: [] as IProduct[]
+    products: [] as IProduct[],
+    loading: false as boolean
   }),
   getters: {
     list: (state) => {
@@ -15,14 +16,19 @@ export const productsStore = defineStore('productsStore', {
   actions: {
     async listAll (): Promise<IProduct[]> {
       try {
+        this.loading = true
         // Buscando produtos na API
         if (this.products.length === 0) {
           this.products = await $api.products.listAll()
         }
         setTimeout(async () => {
+          // Chamo de forma asyncrona para atualizar o store posteriormente
+          this.loading = true
           this.products = await $api.products.listAll()
-        }, 10)
+          this.loading = false
+        }, 500)
 
+        this.loading = false
         return this.products
       } catch (err) {
         console.error('Erro ao listar os produtos: ', err)

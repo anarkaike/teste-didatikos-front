@@ -1,5 +1,7 @@
 <template>
-  <q-btn unelevated color="negative" round icon="delete"  dense class="q-ml-xs" @click="methods.onClick" />
+  <q-btn unelevated color="negative" round icon="delete"  dense class="q-ml-xs very-effect-scale-xl" @click="methods.onClick">
+    <q-tooltip>Clique para deletar</q-tooltip>
+  </q-btn>
 </template>
 
 <script lang="ts" setup>

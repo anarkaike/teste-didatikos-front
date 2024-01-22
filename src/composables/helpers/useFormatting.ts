@@ -1,11 +1,11 @@
 import { HumanizeDurationLanguage, HumanizeDuration } from 'humanize-duration-ts'
 import { date } from 'quasar'
 
-export default function useHumanize () {
+export default function useFormatting () {
   const langService: HumanizeDurationLanguage = new HumanizeDurationLanguage()
   const humanizer: HumanizeDuration = new HumanizeDuration(langService)
 
-  const humanizeDuration = (milliseconds: number) => {
+  const duration = (milliseconds: number) => {
     const durationHumanized = humanizer.humanize(milliseconds, {
       language: 'pt',
       units: ['y', 'mo', 'w', 'd', 'h', 'm'],
@@ -15,7 +15,7 @@ export default function useHumanize () {
     return durationHumanized.replace(/,\s*([^,]*)$/, ' e $1')
   }
 
-  const humanizeDatetime = (datetime: string, format = 'DD/MM HHhmm') => {
+  const datetime = (datetime: string, format = 'DD/MM HHhmm') => {
     let dateHumanized = ''
     datetime = datetime.replace('/', '-').replace('/', '-')
 
@@ -59,13 +59,28 @@ export default function useHumanize () {
     return dateHumanized.replace('h00', 'h').replace(':00', 'h')
   }
 
+  const money = (money: number, removeRightZero = true) => {
+    if (isNaN(money)) return 0
+    const moneyFormated = money.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    return removeRightZero ? moneyFormated.replace(',00', '') : moneyFormated
+  }
+
+  const decimal = (number: number, minimumFractionDigits = 0) => {
+    if (isNaN(number)) return 0
+    return number.toLocaleString('pt-BR', { minimumFractionDigits, maximumFractionDigits: 2 })
+  }
+
   return {
-    humanizeDuration,
-    humanizeDatetime
+    duration,
+    datetime,
+    money,
+    decimal
   }
 }
 
-export const $useHumanize = {
-  duration: useHumanize().humanizeDuration,
-  datetime: useHumanize().humanizeDatetime
+export const $formatting = {
+  duration: useFormatting().duration,
+  datetime: useFormatting().datetime,
+  money: useFormatting().money,
+  decimal: useFormatting().decimal
 }
