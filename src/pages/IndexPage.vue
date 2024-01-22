@@ -109,6 +109,7 @@ onBeforeMount(() => {
           border: 1px solid #cea6e7;
           &:hover {
             background-color: #cea6e7;
+            color: #540088;
           }
         }
       }
@@ -118,6 +119,7 @@ onBeforeMount(() => {
           border: 1px solid #ECAB91;
           &:hover {
             background-color: #ECAB91;
+            color: #7c2a07;
           }
         }
       }
@@ -127,6 +129,7 @@ onBeforeMount(() => {
           border: 1px solid #AFBAC4;
           &:hover {
             background-color: #AFBAC4;
+            color: #013a6c;
           }
         }
       }
@@ -136,6 +139,7 @@ onBeforeMount(() => {
           border: 1px solid #eac070;
           &:hover {
             background-color: #eac070;
+            color: #5d3f02;
           }
         }
       }
@@ -145,6 +149,7 @@ onBeforeMount(() => {
           border: 1px solid #e07d82;
           &:hover {
             background-color: #e07d82;
+            color: #54050a !important;
           }
         }
       }

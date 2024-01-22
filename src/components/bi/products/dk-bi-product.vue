@@ -20,27 +20,44 @@
       </q-input>
     </div>
     <div class="scroll box-bi q-mb-sm">
-      <div v-for="(row, index) in filtered" :key="row.id">
+      <div v-for="(row) in filtered" :key="row.id">
         <div class="q-mb-md" v-show="totalsByBrands[row.id] > 0">
-          <strong>{{index+1}} • {{row.label}}</strong>
           <div style="color: #585f63;">
-            <strong>{{totalsByBrands[row.id]}} produtos</strong> desta {{singlarLabel.toLowerCase()}}
-            <q-separator />
-            {{$formatting.decimal(sumStockByBrands[row.id])}} unidades em estoque ao total
-            <q-separator />
-            <strong>Somatória</strong> dos valores é de <strong>{{ $formatting.money(sumPriceByBrands[row.id]) }}</strong>
-            <q-separator />
-            Média de valor: {{$formatting.money(averagesPriceByBrands[row.id])}}
-            <q-separator />
-            Média de estoque: {{$formatting.decimal(averagesStockByBrands[row.id])}}
-            <q-separator />
-            <strong>Maior</strong> preço: <strong>{{maxPriceInBrands[row.id]?.name}}</strong> com <strong>{{$formatting.money(maxPriceInBrands[row.id]?.price??0)}}</strong>
-            <q-separator />
-            <strong>Menor</strong> preço: <strong>{{minPriceInBrands[row.id]?.name}}</strong> com <strong>{{$formatting.money(minPriceInBrands[row.id]?.price??0)}}</strong>
-            <q-separator />
-            <strong>Maior</strong> estoque: <strong>{{maxStockInBrands[row.id]?.name}}</strong> com <strong>{{$formatting.decimal(maxStockInBrands[row.id]?.price??0)}}</strong>
-            <q-separator />
-            <strong>Menor</strong> estoque: <strong>{{minStockInBrands[row.id]?.name}}</strong> com <strong>{{$formatting.decimal(minStockInBrands[row.id]?.price??0)}}</strong>
+            <div class="flex justify-between">
+              <div class="title-info-bi">{{singlarLabel}} {{row.label}}</div>
+              <q-chip dense outline class="chip-info-bi">{{totalsByBrands[row.id]}} produtos</q-chip>
+            </div>
+
+            <div class="subtitle-info-bi flex justify-between">
+              <span>Estoque:</span>
+              <span>
+                <q-chip dense outline class="chip-info-bi">Soma total: {{$formatting.decimal(sumStockByBrands[row.id])}}</q-chip>
+                <q-chip dense outline class="chip-info-bi">Média: {{$formatting.decimal(averagesStockByBrands[row.id])}}</q-chip>
+              </span>
+            </div>
+            <div class="label-bi">Menor quantidade em estoque:</div>
+            <div class="valor-bi">{{minStockInBrands[row.id]?.name}} ({{$formatting.decimal(minStockInBrands[row.id]?.price??0)}})</div>
+            <div class="label-bi">Maior quantidade em estoque:</div>
+            <div class="valor-bi">{{maxStockInBrands[row.id]?.name}} ({{$formatting.decimal(maxStockInBrands[row.id]?.price??0)}})</div>
+
+            <div class="subtitle-info-bi flex justify-between">
+              <span>Preço:</span>
+              <span>
+                <q-chip dense outline class="chip-info-bi">Soma total: R$ {{ $formatting.money(sumPriceByBrands[row.id]) }}</q-chip>
+                <q-chip dense outline class="chip-info-bi">Média: R$ {{$formatting.money(averagesPriceByBrands[row.id])}}</q-chip>
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <div>
+                <div class="label-bi">Maior valor:</div>
+                <div class="valor-bi">{{minPriceInBrands[row.id]?.name}} (R$ {{$formatting.money(minPriceInBrands[row.id]?.price??0)}})</div>
+              </div>
+              <div>
+                <div class="label-bi">Maior valor:</div>
+                <div class="valor-bi">{{maxPriceInBrands[row.id]?.name}} (R$ {{$formatting.money(maxPriceInBrands[row.id]?.price??0)}})</div>
+              </div>
+            </div>
+            <q-separator class="q-my-md" />
           </div>
         </div>
       </div>
@@ -89,6 +106,7 @@ const filtered = computed(() =>
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05) inset;
   border-radius: 5px;
   padding: 5px;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 .title-bi {
   color: #C10209;
@@ -97,5 +115,28 @@ const filtered = computed(() =>
     background-color: #c10209;
     font-size: 12px;
   }
+}
+
+.title-info-bi {
+  font-size: 16px;
+  font-weight: 1000;
+  color: #bf020a;
+}
+.subtitle-info-bi {
+  font-size: 15px;
+  font-weight: 700;
+}
+.label-bi {
+  font-size: 13px;
+  font-weight: 500;
+}
+.valor-bi {
+  font-size: 12px;
+  font-weight: 300;
+}
+.chip-info-bi {
+  border: 1px solid #CCC;
+  font-size: 12px;
+  color: #666;
 }
 </style>

@@ -108,6 +108,7 @@ export const productsStore = defineStore('productsStore', {
         $notify.success(`O produto "${product.name}" foi atualizado com sucesso`)
         return productUpdated
       } catch (err) {
+        $loading.hide()
         console.error('Erro ao atualizar o produto: ', product, err)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -127,6 +128,7 @@ export const productsStore = defineStore('productsStore', {
         $notify.success('O produto foi deletado com sucesso')
         return deleted
       } catch (err) {
+        $loading.hide()
         console.error(`Erro ao deletar o produto de ID ${id}: `, err)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

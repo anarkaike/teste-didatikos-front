@@ -74,7 +74,7 @@ export default class BaseApiService {
   }
 
   handleErrors () {
-    LocalStorage.clear()
+    // LocalStorage.clear()
     // Queria redirecionar para o login aqui mas não consegui
     // $stores.auth.logout()
     // const router = useRouter()

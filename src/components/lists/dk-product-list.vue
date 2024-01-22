@@ -164,7 +164,7 @@
           <!-- TEMPLATE COLUNA PREÇO -->
           <q-td auto-width key="price" :props="props" class="xs-hide cursor-pointer" @click="methods.onEdit(props.row)">
             <q-chip outline>
-              {{$formatting.money(props.row.price)}}
+              R$ {{$formatting.money(props.row.price)}}
               <DkIconUpDown :value1="props.row.price" :value2="averagePrice" />
             </q-chip>
           </q-td>
@@ -204,19 +204,19 @@
 
     <div class="flex justify-between">
       <q-chip dense class="col-auto q-px-md chip-title">
-        <u>Maior</u> valor: <strong>{{maxPrice.name}}</strong> com <strong>{{$formatting.money(maxPrice.price)}}</strong>
+        <u>Menor</u> valor: <strong>{{minPrice.name}}</strong> com <strong>R$ {{$formatting.money(minPrice.price)}}</strong>
       </q-chip>
       <q-chip dense class="col-auto q-px-md chip-title">
-        <u>Maior</u> estoque: <strong>{{maxStock.name}}</strong> com <strong>{{$formatting.money(maxStock.price)}}</strong>
+        <u>Maior</u> valor: <strong>{{maxPrice.name}}</strong> com <strong>R$ {{$formatting.money(maxPrice.price)}}</strong>
       </q-chip>
     </div>
     <q-separator />
     <div class="flex justify-between">
       <q-chip dense class="col-auto q-px-md chip-title">
-        <u>Menor</u> valor: <strong>{{minPrice.name}}</strong> com <strong>{{$formatting.money(minPrice.price)}}</strong>
+        <u>Menor</u> estoque: <strong>{{minStock.name}}</strong> com <strong>{{$formatting.decimal(minStock.stock)}}</strong>
       </q-chip>
       <q-chip dense class="col-auto q-px-md chip-title">
-        <u>Menor</u> estoque: <strong>{{minStock.name}}</strong> com <strong>{{$formatting.money(minStock.price)}}</strong>
+        <u>Maior</u> estoque: <strong>{{maxStock.name}}</strong> com <strong>{{$formatting.decimal(maxStock.stock)}}</strong>
       </q-chip>
     </div>
   </div>
