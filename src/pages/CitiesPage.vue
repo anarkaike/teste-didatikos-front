@@ -29,24 +29,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, ref, Ref } from 'vue'
+import { onBeforeMount, ref, Ref } from 'vue'
 import { $stores } from '@/stores/all'
-import { ICity } from '@/interfaces'
+import { IBrand, ICity } from '@/interfaces'
 import { DkCityForm, DkCityList } from '@/components'
 
 const cityForEdit: Ref<ICity> = ref({})
-const useFiltered: Ref<boolean> = ref(true)
-const citiesFiltered: Ref<ICity[]> = ref([])
-const cities = computed(() => useFiltered.value ? citiesFiltered.value : $stores.cities.list)
+const citiesFiltered: Ref<IBrand[]> = ref([])
 const methods = {
   onEdit (city: ICity) {
     cityForEdit.value = city
   },
   onCancelEdit (cityReseted: ICity) {
     cityForEdit.value = cityReseted
-  },
-  updateCityFiltered (cities: ICity[]) {
-    citiesFiltered.value = cities
   }
 }
 

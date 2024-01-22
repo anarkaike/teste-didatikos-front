@@ -2,10 +2,7 @@
   <div>
     <div class="text-h6 q-ml-sm q-mb-sm justify-between flex">
       <span class="col-grow">Listagem de Usuários</span>
-    </div>
-    <div class="ctn-filter">
-      <div class="row">
-      <div class="col-12 col-md-4 q-px-xs">
+      <span>
         <q-input
           rounded
           standout
@@ -19,8 +16,7 @@
             <icon icon="majesticons:search" />
           </template>
         </q-input>
-      </div>
-    </div>
+      </span>
     </div>
     <q-table
       class="my-sticky-last-column-table"
@@ -133,7 +129,7 @@ const usersFiltered = computed(() => {
   // const key = filterData.value.search.toLowerCase().split(' ')
   const usersFiltered = $stores.users.list.filter((user: IUser) => {
     let found = false
-    const columnsForFilter = ['id', 'name']
+    const columnsForFilter = ['id', 'name', 'email']
     columnsForFilter.forEach((column: string) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

@@ -2,10 +2,7 @@
   <div>
     <div class="text-h6 q-ml-sm q-mb-sm justify-between flex">
       <span class="col-grow">Listagem de Marcas</span>
-    </div>
-    <div class="ctn-filter">
-      <div class="row">
-      <div class="col-12 col-md-4 q-px-xs">
+      <span>
         <q-input
           rounded
           standout
@@ -19,8 +16,7 @@
             <icon icon="majesticons:search" />
           </template>
         </q-input>
-      </div>
-    </div>
+      </span>
     </div>
     <q-table
       class="my-sticky-last-column-table"

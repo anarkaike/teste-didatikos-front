@@ -35,9 +35,7 @@ import { IBrand } from '@/interfaces'
 import { DkBrandForm, DkBrandList } from '@/components'
 
 const brandForEdit: Ref<IBrand> = ref({})
-const useFiltered: Ref<boolean> = ref(true)
 const brandsFiltered: Ref<IBrand[]> = ref([])
-const brands = computed(() => useFiltered.value ? brandsFiltered.value : $stores.brands.list)
 const methods = {
   onEdit (brand: IBrand) {
     brandForEdit.value = brand

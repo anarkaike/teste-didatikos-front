@@ -51,14 +51,13 @@
 <script lang="ts" setup>
 import { $bi, $formatting, $sanitization } from '@/composables'
 import { EBiProductCalculateColumns, EBiProductTypes } from '@/enums'
-import { IBrand, IOption, IProduct } from '@/interfaces'
-import { $stores } from '@/stores/all'
+import { IOption, IProduct } from '@/interfaces'
 import { computed, ComputedRef, ref, Ref } from 'vue'
 
 const props = withDefaults(defineProps<{
-  products?: IProduct[],
+  products?: IProduct[]|null,
   type: EBiProductTypes,
-  categories: IOption[]
+  categories: IOption[]|null
 }>(), {
   products: () => [],
   categories: () => []
@@ -67,19 +66,19 @@ const singlarLabel = props.type === EBiProductTypes.BRAND ? 'Marca' : 'Cidade'
 const pluralLabel = props.type === EBiProductTypes.BRAND ? 'Marcas' : 'Cidades'
 const funcName = props.type === EBiProductTypes.BRAND ? 'byBrand' : 'byCity'
 
-const sumPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products, EBiProductCalculateColumns.PRICE))
-const sumStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products, EBiProductCalculateColumns.STOCK))
-const totalsByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.totals[funcName](props.products))
-const averagesPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products, EBiProductCalculateColumns.PRICE))
-const averagesStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products, EBiProductCalculateColumns.STOCK))
-const maxPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products, EBiProductCalculateColumns.PRICE))
-const maxStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products, EBiProductCalculateColumns.STOCK))
-const minPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products, EBiProductCalculateColumns.PRICE))
-const minStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products, EBiProductCalculateColumns.STOCK))
+const sumPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products ?? [], EBiProductCalculateColumns.PRICE))
+const sumStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.sums[funcName](props.products ?? [], EBiProductCalculateColumns.STOCK))
+const totalsByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.totals[funcName](props.products ?? []))
+const averagesPriceByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products ?? [], EBiProductCalculateColumns.PRICE))
+const averagesStockByBrands: ComputedRef<{[key: number]: number}> = computed(() => $bi.products.avarages[funcName](props.products ?? [], EBiProductCalculateColumns.STOCK))
+const maxPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products ?? [], EBiProductCalculateColumns.PRICE))
+const maxStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.max[funcName](props.products ?? [], EBiProductCalculateColumns.STOCK))
+const minPriceInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products ?? [], EBiProductCalculateColumns.PRICE))
+const minStockInBrands: ComputedRef<{[key: number]: IProduct}> = computed(() => $bi.products.min[funcName](props.products ?? [], EBiProductCalculateColumns.STOCK))
 const search: Ref<string> = ref('')
 
 const filtered = computed(() =>
-  props.categories.filter((b) => $sanitization.forSearch(b.label as string)?.includes($sanitization.forSearch(search.value)))
+  (props.categories ?? []).filter((b) => $sanitization.forSearch(b.label as string)?.includes($sanitization.forSearch(search.value)))
 )
 </script>
 

@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div class="text-h6 q-ml-sm q-mb-sm justify-between flex">
-      <span class="col-grow">Listagem de Cidades</span>
-    </div>
-    <div class="ctn-filter">
-      <div class="row">
-      <div class="col-12 col-md-4 q-px-xs">
+    <div class="text-h6 q-ml-sm q-mb-sm justify-between row">
+      <span class="col-grow col-5 justify-between">
+        Listagem de Cidades
+      </span>
+      <span>
         <q-input
           rounded
           standout
@@ -14,13 +13,13 @@
           hide-bottom-space
           autocomplete="off"
           dense
+          class="col-5"
         >
           <template #prepend>
             <icon icon="majesticons:search" />
           </template>
         </q-input>
-      </div>
-    </div>
+      </span>
     </div>
     <q-table
       class="my-sticky-last-column-table"
