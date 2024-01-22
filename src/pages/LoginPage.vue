@@ -82,6 +82,7 @@ const methods = {
 
 <style scoped lang="scss">
 .login-box {
+  margin-top: 50px;
   max-width: 440px;
   min-height: 400px;
   box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.1411764706);
