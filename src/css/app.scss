@@ -1,0 +1,91 @@
+// app global css in SCSS form
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.q-field--standout .q-field__control {
+  color: #23282c !important;
+  background-color: #f0f0f5 !important;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.q-field--standout.q-field--highlighted .q-field__control {
+  box-shadow: none;
+  box-shadow: 0 0 0 0.2rem rgba(191, 2, 10, 0.25);
+}
+
+.q-field__label {
+  color: #666;
+}
+.q-btn {
+  transition: transform 0.1s linear;
+  &:hover {
+    transform: scale(1.01);
+  }
+}
+
+.q-field--highlighted .q-field__label,
+.q-field--float .q-field__label {
+  color: #666 !important;
+}
+
+.q-field__bottom {
+}
+.q-field__messages {
+  color: #4273FA;
+  font-weight: 500;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 17px;
+}
+
+.q-field--standout.q-field--highlighted .q-field__native, .q-field--standout.q-field--highlighted .q-field__prefix, .q-field--standout.q-field--highlighted .q-field__suffix, .q-field--standout.q-field--highlighted .q-field__prepend, .q-field--standout.q-field--highlighted .q-field__append, .q-field--standout.q-field--highlighted .q-field__input {
+  color: rgb(35, 40, 44);
+}
+ input {
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+}
+.btn-primary {
+  background-color: #BF020A;
+  color: #FFF;
+  font-size: 16px;
+}
+
+
+.chip-green {
+  background-color: green !important;
+  color: #FFF;
+  font-size: 11px !important;
+}
+
+.tooltip-red {
+  background-color: #C00209 !important;
+}
+
+.tooltip-gray-mini {
+  background-color: #666 !important;
+  font-size: 10px;
+}
+
+.iconify {
+  font-size: 23px;
+  min-width: 23px;
+  min-height: 23px;
+}
+
+.title-welcome,
+.title-page {
+  font-size: 35px;
+  font-weight: 100;
+  strong {
+    font-weight: 200;
+  }
+}
+
+.q-drawer {
+  background-color: rgba(0, 0, 0, 0);
+}
+.q-page {
+  min-height: calc(100vh - 135px) !important;
+}
